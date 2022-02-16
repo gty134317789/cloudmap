@@ -1,0 +1,1 @@
+"D:\WechatDevelop\微信web开发者工具\cli.bat" cloud functions deploy --e mapdata-5g8dzutj2fe347c3 --n quickstartFunctions --r --project "D:\本科\22计算机应用能力大赛\可视化\cloudmap" --report_first --report
