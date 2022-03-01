@@ -15,10 +15,10 @@ exports.main = async(event, context) => {
       password: "dsj2021_"
     })
     //大小受限，筛选0-5000个数据
-    const [rows, fields] = await connection.execute(' SELECT * FROM jd1 order by f1 desc limit 0,5000;')
+    const [rows, fields] = await connection.execute(' SELECT * FROM jd3 order by f1 desc limit 0,5000;')
     return rows;
   } catch (err) {
-    console.log("链接错误", err)
+    console.log("连接错误", err)
     return err
   }
 }

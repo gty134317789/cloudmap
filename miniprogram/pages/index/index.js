@@ -2,6 +2,7 @@ var collections=new Array()
 Page({
   //定义数据段
   data:{
+    //collections存储展示的数据，centrex与y用来存储当前用户的位置，默认是上海市
     showData:collections,
     centerX: 121.50515,
     centerY: 31.26451,
@@ -19,8 +20,10 @@ Page({
       },
       clickable: true
     }],
+    //存储图片、名字和简介
     mapimage:"",
     name: "",
+    introduce:""
    
  },
 
@@ -46,7 +49,6 @@ Page({
       },
       fail: (res) => {
         console('定位失败')
-        that.requestshoplist();
       }
     });
   },
@@ -54,27 +56,30 @@ Page({
   //请求景点信息
   requestshoplist: function () {
     let that = this
+    //that.setData用来设置小程序的数据
     that.setData({
       showData:collections
     })
     //console.log(collections)
     //console.log(111)
     let markers = [];
-    //console.log(that.data.showData)
-    for (let i = 0; i < that.data.showData.length; i++) {
+    console.log(that.data.showData)
+    for (let i = 0; i <that.data.showData.length; i++) { 
       let marker = that.createMarker(that.data.showData[i]);
-      markers.push(marker)
-      //console.log(markers)
-    }
+      markers.push(marker)     
+    }    
+    console.log(markers.introduce)                
 
-let shopitem = that.data.showData[0]
-console.log(shopitem.image);
+//测试用，观察数据是否传入
+let shopitem = that.data.showData[1]
+console.log(shopitem.introduce);
 
 //返回参数
 that.setData({
   markers: markers,
   mapimage: shopitem.image,
   name: shopitem.name,
+  introduce:shopitem.introduce
 })
   },
 
@@ -94,10 +99,11 @@ that.setData({
   //当点击标点时，标点的操作
   markertap: function (shopitem) {
     let that = this
-    //console.log(shopitem.markerId);
+    //console.log(shopitem.introduce);
     that.setData({
       mapimage:shopitem.markerId.image, 
       name: shopitem.markerId.name,
+      introduce:shopitem.markerId.introduce
     })
   },
 
@@ -107,8 +113,8 @@ that.setData({
     wx.cloud.callFunction({
       name: "mysql",
       success(res) {
-        console.log("成功", res)
-        console.log("成功", res.result.length)
+        console.log("获取数据成功", res)
+        //console.log("成功", res.result.length)
         //定义一个数组存储数据
         for (let i = 0; i < res.result.length; i++) {
         collections.push(JSON.parse(JSON.stringify(res.result[i])))
@@ -120,13 +126,13 @@ that.setData({
             let marker = collections[i]
             markers.push(marker)
          }
-         //console.log(markers)
-         console.log(collections.length)
+         
+         console.log("数据共有：",collections.length,"条")
          console.log(collections)
         return collections;
       },
       fail(res) {
-        console.log("失败", res)
+        console.log("获取数据失败", res)
       }
     })
   }

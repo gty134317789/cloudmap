@@ -1,14 +1,15 @@
 <!--pages/index/index.wxml-->
-<button bindtap="requestshoplist" type="primary">标注信息</button>  
+<button bindtap="requestshoplist" type="primary">标注景点信息</button>  
 <map id="map" 
 scale="8" 
 controls="{{controls}}" 
 markers="{{markers}}" bindmarkertap="markertap"
-style="width:400px;height:300px"
+style="width:500px;height:500px"
 show-location longitude='{{centerX}}' latitude='{{centerY}}' class='mapv'>
 </map>
 
 <view class='contentv'>
   <image class='headimg' src='{{mapimage}}' mode='aspecFill'></image>
   <view class='item_meddle_one'>{{name}}</view> 
+  <view class='item_introduce'>{{introduce}}</view>
 </view>
