@@ -21,4 +21,4 @@ exports.main = async(event, context) => {
     console.log("连接错误", err)
     return err
   }
-}
+}//云函数模块
